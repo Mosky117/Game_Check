@@ -3,8 +3,9 @@
 ## :desktop_computer: The project
 
 This app is designed to show the latest game released and allow the user to register and save the games completed to its homepage.
-All datas are retrived using IGDB.com APIs and the game informations are stored into a controller that organize the infos in a easier way to display it,
+All datas are retrived using IGDB.com APIs and the game informations are stored into a controller that organize the infos in a easier way to display it.
 It's also possible to recover the account password with the implementation of laravel service.
+The style and JavaScript functions are built using TailWind and AlpineJS
 
 ## :gear: Instruction
 
