@@ -3,7 +3,7 @@
     <x-header>
         Details
     </x-header>
-    <div x-data="{ fullScreenImage: null }" class="text-white container mx-auto p-4">
+    <div class="text-white container mx-auto p-4">
         <div class="flex flex-wrap">
             <div class="w-1/4 pr-4">
                 <img src="{{ isset($game['cover']['url'])? $game['cover']['url']:asset('imgs/game.jpg') }}" alt="Copertina" class="w-full rounded-lg mb-4" />
@@ -33,8 +33,7 @@
                     <div class="flex flex-wrap -mx-2">
                         @foreach($game['screenshots'] as $screenshot)
                             <div class="w-1/3 px-2 mb-4">
-                                <img src="{{ $screenshot['big'] }}" alt="Screenshot" class="w-full rounded-lg" 
-                                @click="fullScreenImage= '{{$screenshot['huge']}}'"/>
+                                <img src="{{ $screenshot['big'] }}" alt="Screenshot" class="w-full rounded-lg" onclick="showFullScreenImage('{{ $screenshot['huge'] }}')"/>
                             </div>
                         @endforeach
                     </div>
@@ -43,11 +42,9 @@
                 @endif
             </div>
         </div>
-        <template x-if="fullScreenImage">
-            <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50"
-                @click="fullScreenImage = null">
-                <img :src="fullScreenImage" class="max-h-full max-w-full" />
-            </div>
-        </template>
+    </div>
+
+    <div id="fullScreenImage" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50" style="display: none;">
+        <img id="fullScreenImg" class="max-h-full max-w-full" />
     </div>
 </x-layout>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="{{asset('js/functions.js')}}"></script>
         <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 
         <title>Laravel</title>
@@ -43,25 +43,19 @@
                     <div class="relative ml-3">
                         @auth
 
-                            <x-dropdown class="bg-white rounded-lg shadow-md">
-                                <x-slot name="trigger">
-                                    <button class="hover:bg-gray-900 px-3 py-2 rounded-full text-sm font-medium uppercase text-white">
-                                        {{auth()->user()->username}}
-                                    </button>
-                                </x-slot>
-                                
-                                <x-dropdown-item href="/saveGame">
-                                    My List
-                                </x-dropdown-item>
-                                <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">
-                                    Log Out
-                                </x-dropdown-item>
+                            <div class="relative w-24" id="dropdown-container">
+                                <button id="user-button" class="hover:bg-gray-900 px-3 py-2 rounded-full text-sm font-medium uppercase text-white" onclick="toggleDropdown()">
+                                    {{auth()->user()->username}}
+                                </button>
 
-                                <form id='logout-form' method="POST" class="hidden" action="/logout">
-                                    @csrf
-
-                                </form>
-                            </x-dropdown>
+                                <div id="dropdown-menu" class="py-2 absolute bg-gray-100 mt-2 rounded-xl w-full z-50 overflow-auto max-h-52" style="display: none;">
+                                    <a class="block px-4 py-2 text-gray-800 leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white" href="/saveGame">My List</a>
+                                    <a class="block px-4 py-2 text-gray-800 leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white" href="#" onclick="logout()">Log out</a>
+                                    <form id="logout-form" method="POST" class="hidden" action="/logout">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </div>
                         @else
                             <a href="/register" class="text-xs font-bold uppercase {{ request()->is('register') ? 'text-blue-500' : 'text-white' }}">Register</a>
                             <a href="/login" class="ml-6 text-xs font-bold uppercase {{ request()->is('login') ? 'text-blue-500' : 'text-white' }}">Log In</a>
@@ -77,14 +71,8 @@
             </div>
         </nav>
 
-        <!-- <header class="bg-white shadow">
-            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-            </div>
-        </header> -->
         <main class="bg-indigo-950">
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            <!-- Your content -->
                 {{$slot}}
             </div>
         </main>

@@ -32,10 +32,10 @@
         </div>
     </div>
     @if(isset($currentPage))
-        <div id="pagination" x-data="{ currentPage: {{ $currentPage }} }" class="flex justify-center mt-4">
-            <template x-if="currentPage > 1">
+        <div id="pagination" class="flex justify-center mt-4">
+            @if($currentPage > 1)
                 <a href="{{ request()->fullUrlWithQuery(['page' => $currentPage-1]) }}" class="w-24 mr-8 bg-gray-200 hover:bg-gray-500 text-blue-900 font-bold py-2 px-4 rounded-full text-center">Previous</a>
-            </template>
+            @endif
             <a href="{{ request()->fullUrlWithQuery(['page' => $currentPage+1]) }}" class="ml-8 w-24 bg-gray-200 hover:bg-gray-500 text-blue-900 font-bold py-2 px-4 rounded-full text-center">Next</a>
         </div>
     @endif
