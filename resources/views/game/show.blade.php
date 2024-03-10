@@ -5,21 +5,25 @@
     </x-header>
     <div class="text-white container mx-auto p-4">
         <div class="flex flex-wrap">
-            <div class="w-1/4 pr-4">
+            <div class="w-1/4  pr-4">
                 <img src="{{ isset($game['cover']['url'])? $game['cover']['url']:asset('imgs/game.jpg') }}" alt="Copertina" class="w-full rounded-lg mb-4" />
             </div>
-            <div class="w-2/4 pl-4">
+            <div class="w-3/4 pl-4 sm:w-2/4">
                 <h1 class="text-4xl font-bold mb-4">{{ $game['name'] }}</h1>
                 <p class="mb-4">{{ isset($game['summary'])? $game['summary']:'No description no spoilers... I guess' }}</p>
                 @auth
-                    <form id="saveGame-form" method="POST" action="/saveGame" class=" mr-4 bottom-4 right-4">
-                        @csrf
-                        <input type="hidden" name="game_id" value="{{ $game['id'] }}">
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Save</button>
-                    </form>
+                <form id="saveGame-form" method="POST" action="/saveGame" class=" mr-4 bottom-4 right-4">
+                    @csrf
+                    <input type="hidden" name="game_id" value="{{ $game['id'] }}">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Save</button>
+                </form>
                 @endauth
             </div>
-            <div class="w-1/4 pl-4">
+            <div class="bg-blue-950 border rounded-lg shadow-md p-4 mt-4 mb-4 w-full sm:hidden">
+                <h2 class="text-xl font-bold mb-2">Platforms</h2>
+                <p>{{ $game['platforms'] }}</p>
+            </div>
+            <div class="w-1/4 pl-4 hidden sm:block">
                 <div class="bg-blue-950 border rounded-lg shadow-md p-4 mb-4">
                     <h2 class="text-xl font-bold mb-2">Platforms</h2>
                     <p>{{ $game['platforms'] }}</p>
@@ -32,7 +36,7 @@
                 @if(isset($game['screenshots']))
                     <div class="flex flex-wrap -mx-2">
                         @foreach($game['screenshots'] as $screenshot)
-                            <div class="w-1/3 px-2 mb-4">
+                            <div class="w-1/2 sm:w-1/3 px-2 mb-4">
                                 <img src="{{ $screenshot['big'] }}" alt="Screenshot" class="w-full rounded-lg" onclick="showFullScreenImage('{{ $screenshot['huge'] }}')"/>
                             </div>
                         @endforeach

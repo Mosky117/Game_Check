@@ -4,30 +4,30 @@
     <x-header>
         Dashboard
     </x-header>
-    <div class="container mx-auto p-4 flex">
-        <div class="w-3/4 p-4">
+    <div class="container mx-auto p-4 flex flex-col sm:flex-row">
+        <div class="w-full sm:w-3/4 p-4">
             <x-filter></x-filter>
             <div class="flex flex-wrap -mx-4">
                 @foreach($games as $game)
-                <div class="w-1/3 px-4 mb-4 relative">
+                <div class="w-1/2 sm:w-1/3 px-4 mb-4 relative">
                     <div class="bg-blue-950 border rounded-lg shadow-md p-4" style="height: 550px;">
                         <a href="{{ route('game.show', $game['slug']) }}">    
-                            <img src="{{ $game['cover']['url']}}" alt="Immagine" class="w-full mb-4 rounded-lg" />
-                            <h3 class="text-white text-xl font-bold mb-2">{{ $game['name'] }}</h3>
-                            @auth
-                                <form id="saveGame-form" method="POST" action="/saveGame" class="absolute mr-4 bottom-4 right-4">
-                                    @csrf
-                                    <input type="hidden" name="game_id" value="{{ $game['id'] }}">
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Save</button>
-                                </form>
-                            @endauth
+                        <img src="{{ $game['cover']['url']}}" alt="Immagine" class="w-full mb-4 rounded-lg" />
+                        <h3 class="text-white text-xl font-bold mb-2">{{ $game['name'] }}</h3>
+                        @auth
+                            <form id="saveGame-form" method="POST" action="/saveGame" class="absolute mr-4 bottom-4 right-4">
+                                @csrf
+                                <input type="hidden" name="game_id" value="{{ $game['id'] }}">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Save</button>
+                            </form>
+                        @endauth
                         </a>
                     </div>
                 </div>
                 @endforeach
             </div>
         </div>
-        <div class="w-1/4 p-4 mt-12">
+        <div class="w-full sm:w-1/4 p-4">
             <x-filter-platforms></x-filter-platforms>
         </div>
     </div>
